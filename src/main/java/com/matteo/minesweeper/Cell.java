@@ -13,6 +13,16 @@ public class Cell {
     public int i;
     public int j;
 
+    String[] colors = {
+            new String("#3349FF"),
+            new String("#0B8A07"),
+            new String("#F10E07"),
+            new String("#9107F1"),
+            new String("#800B0B"),
+            new String("#0AA5B2"),
+            new String("#000000"),
+            new String("#646A6A"),
+    };
 
     public Cell(String btnName, int iPos, int jPos) {
         this._riskNumber = 0;
@@ -40,7 +50,7 @@ public class Cell {
         this._btn = new Button(name);
         this._btn.setOnMouseClicked(this::onClick);
         this._btn.setPrefSize(100, 100);
-        this._btn.setStyle("-fx-background-color: #91d455; ");
+        //this._btn.setStyle("-fx-background-color: #91d455; ");
     }
 
     public void removeListener() {
@@ -58,7 +68,7 @@ public class Cell {
         if (this.is_isBomb()) {
             this._btn.setStyle("-fx-background-color: #d45555; ");
         } else {
-            this._btn.setStyle("-fx-background-color: #d4b055; ");
+            this._btn.setStyle("-fx-background-color: #abc8f6; ");
         }
         this._clicked = true;
     }
@@ -77,11 +87,15 @@ public class Cell {
 
     public void setBombNear(boolean bombNear) {
         this.bombNear = bombNear;
+    }
 
-        if (this.bombNear && this._riskNumber > 0) {
-            this._btn.setText(Integer.toString(this._riskNumber));
-        } else {
-            this._btn.setText("");
+
+
+
+    public void showNumber() {
+        this._btn.setText(Integer.toString(this._riskNumber));
+        if (get_riskNumber() > 0) {
+            this._btn.setStyle("-fx-text-fill: " + colors[get_riskNumber()-1] + "; -fx-background-color: #abc8f6; -fx-font-weight: bold; -fx-font-size: 24px");
         }
     }
 }

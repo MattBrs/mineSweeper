@@ -43,7 +43,7 @@ public class Main extends Application {
         }
 
         this._setBombs();
-        this._printMatrix(this._grid, this._gridSize);
+        //this._printMatrix(this._grid, this._gridSize);
         Scene scene = new Scene(gp, 1000, 1000);
         stage.setResizable(false);
         stage.setTitle("MineSweeper!");
@@ -132,10 +132,12 @@ public class Main extends Application {
         }
         if (!_grid[startI][startJ].is_isBomb() && _grid[startI][startJ].get_riskNumber() > 0) {
             _grid[startI][startJ].set_clicked();
+            _grid[startI][startJ].showNumber();
             return false;
         }
 
         _grid[startI][startJ].set_clicked();
+
 
         for (int i = startI-1; i <= startI+1; i++) {
             for (int j = startJ-1; j <= startJ+1; j++) {
