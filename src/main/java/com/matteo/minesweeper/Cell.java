@@ -8,9 +8,11 @@ public class Cell {
     private Button _btn;
     private int _riskNumber;
     private boolean _clicked;
+    private boolean bombNear = false;
     private boolean _isBomb;
     public int i;
     public int j;
+
 
     public Cell(String btnName, int iPos, int jPos) {
         this._riskNumber = 0;
@@ -23,11 +25,7 @@ public class Cell {
 
     public void onClick(MouseEvent mouseEvent) {
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && !this.is_clicked()) {
-            this._clicked = true;
-            this._btn.setStyle("-fx-background-color: #d4b055; ");
-
             if (this._isBomb) {
-                this._btn.setStyle("-fx-background-color: #d45555; ");
                 Main.lost();
             }
 
@@ -55,6 +53,15 @@ public class Cell {
     public boolean is_clicked() {
         return _clicked;
     }
+    public void set_clicked() {
+
+        if (this.is_isBomb()) {
+            this._btn.setStyle("-fx-background-color: #d45555; ");
+        } else {
+            this._btn.setStyle("-fx-background-color: #d4b055; ");
+        }
+        this._clicked = true;
+    }
     public boolean is_isBomb() {
         return _isBomb;
     }
@@ -66,5 +73,15 @@ public class Cell {
     }
     public void set_riskNumber(int _riskNumber) {
         this._riskNumber = _riskNumber;
+    }
+
+    public void setBombNear(boolean bombNear) {
+        this.bombNear = bombNear;
+
+        if (this.bombNear && this._riskNumber > 0) {
+            this._btn.setText(Integer.toString(this._riskNumber));
+        } else {
+            this._btn.setText("");
+        }
     }
 }
